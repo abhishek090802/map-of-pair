@@ -1,0 +1,73 @@
+//Abhishek Shrivastava//
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+#define ll long long
+#define ff first
+#define pq1 priority_queue<int>
+#define mh1 priority_queue<int,vector<int>,greater<int>> 
+#define ss second
+#define mod 1000000007
+#define inf 1e18
+#define pb push_back
+#define ppb pop_back
+#define ff first
+#define ss second
+#define vi vector<int>
+#define setbits(x)   __builtin_popcountll(x)
+#define ps(x,y)  fixed<<setprecision(y)<<x    // x is the floating or double number 
+#define fo(i,n)  for( int i=0;i<n;i++)        //any y is the no. after point you want!!
+int reverse(int n) { int x=0;    while(n>0) { x=x*10+n%10;  n=n/10; } return x; }
+int  gcd(int a,int b){ if(b==0) return a; return gcd(b,a%b);}
+int lcm(int a,int b){ return (a/gcd(a,b)*b); }
+bool isPrime(int n){ if(n<=1) return false; 
+if(n<=3) return true; if(n%2==0||n%3==0) return false; 
+for(int i=5;i*i<=n;i=i+6)if(n%i==0||n%(i+2)==0) return false;return true;}
+bool isPowerOfTwo(int n){if(n==0)return false;return (ceil(log2(n)) == floor(log2(n)));}
+bool isPerfectSquare(ll x){if (x >= 0) {ll sr = sqrt(x);return (sr * sr == x);}return false;}
+bool sortd(int a,int b){ return a>b; }      
+
+void solve()
+{  
+ int n; cin>>n;
+ map<pair<int,int>,int>m;
+   //int l,r,c;
+ int minl=inf; int maxr=-inf;
+ int costl=inf; int costr=inf;
+ int l,r,c;
+ //map<pair<int,int>,int>m;// int ans=0;
+ for(int i=0;i<n;i++)
+ {
+ 	cin>>l>>r>>c;
+ 	if(m.find({l,r})!=m.end())
+ 	m[{l,r}]=min(c,m[{l,r}]);
+ 	else m[{l,r}]=c;// these conditions when both min,max came from differene segments
+ 	if(l<minl)
+ 		{minl=l; costl=c;}
+ 	if(l==minl)
+ 		{costl=min(c,costl);}
+ 	if(r>maxr)
+ 		{maxr=r; costr=c;}
+ 	if(r==maxr)
+ 		{costr=min(c,costr);}
+ 	int ans=costl+costr;
+ 	
+
+ 	if(m.find({minl,maxr})!=m.end())  // when minl and maxr came from the same segment
+ 		{ans=min(ans,m[{minl,maxr}]);}
+ 	cout<<ans<<endl;
+ }   
+  
+
+}
+int32_t main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+
+    int t = 1;
+    cin >> t;
+    cin.ignore();
+    while (t--) solve();
+    return 0;
+}
